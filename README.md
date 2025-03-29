@@ -206,4 +206,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Font Awesome for icons
 - All contributors and maintainers
 ## Demo Video
-- [https://youtu.be/Bo9NqZbOmcI]
+- [https://drive.google.com/file/d/1e95Ltp_lBqVghnSEQySaSDLZE9U0Mdwz/view?usp=sharing]
