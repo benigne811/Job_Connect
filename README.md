@@ -20,65 +20,159 @@ A simple and intuitive job search application that helps users find their next c
 
 ## Technologies Used
 
-- Frontend:
+- **Frontend:**
   - HTML5
   - CSS3 (Vanilla)
   - JavaScript (ES6+)
-- Backend:
+- **Backend:**
   - Node.js
   - Express.js
-- API:
+- **API:**
   - JSearch API (via RapidAPI)
 
 ## Prerequisites
 
-- Node.js (v14 or higher)
-- npm (v6 or higher)
+- Node.js (v18 or higher)
+- npm (v8 or higher)
+- PM2 for process management
 - JSearch API key from RapidAPI
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
+
 ```bash
-git clone <repository-url>
-cd job-connect
+   git clone https://github.com/benigne811/Job_Connect.git
+   cd job-connect
 ```
 
-2. Install dependencies:
+2. **Install dependencies:**
+
 ```bash
-npm install
+   npm install
 ```
 
-3. Create a `.env` file in the root directory and add your JSearch API key:
+3. **Create a ****************************************************************`.env`**************************************************************** file** in the root directory and add your JSearch API key:
+
 ```
-JSEARCH_API_KEY=your_api_key_here
+   JSEARCH_API_KEY=your_api_key_here
 ```
 
-4. Start the server:
+4. **Start the server:**
+
 ```bash
-npm start
+   npm start
 ```
 
-5. Open your browser and navigate to `http://localhost:3000`
+5. **Open your browser and navigate to** `http://localhost:3000`
 
 ## Deployment Instructions
 
-### Local Development
-1. Ensure all dependencies are installed
-2. Set up your environment variables
-3. Run the application locally using `npm start`
+### **Deploying on Ubuntu Servers**
 
-### Server Deployment
-1. SSH into your web servers (Web01 and Web02)
-2. Clone the repository
-3. Install dependencies
-4. Set up environment variables
-5. Start the application using PM2 or similar process manager
+1. **SSH into your web server:**
 
-### Load Balancer Configuration
-1. Configure the load balancer (Lb01) to distribute traffic between Web01 and Web02
-2. Set up health checks to ensure proper server status
-3. Configure SSL certificates if needed
+```bash
+   ssh ubuntu@3.82.202.21
+```
+
+2. **Update package lists and install dependencies:**
+
+```bash
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install -y nodejs npm git
+```
+
+3. **Clone the repository:**
+
+```bash
+   git clone https://github.com/benigne811/Job_Connect.git
+   cd Job_Connect
+```
+
+4. **Install dependencies:**
+
+```bash
+   npm install
+```
+
+5. **Set up environment variables:**
+
+```bash
+   echo "JSEARCH_API_KEY=your_api_key_here" > .env
+```
+
+6. **Start the application with PM2:**
+
+```bash
+   npm install -g pm2
+   pm2 start server.js --name JobConnect
+   pm2 save
+   pm2 startup
+```
+
+### **Configuring the Load Balancer**
+
+1. **Install Nginx on the load balancer server:**
+
+```bash
+   sudo apt update
+   sudo apt install -y nginx
+```
+
+2. **Edit the Nginx configuration file:**
+
+```bash
+   sudo nano /etc/nginx/sites-available/default
+```
+
+3. **Modify the file to include the following load balancing configuration:**
+
+```
+   upstream jobconnect_servers {
+       server 3.82.202.21:3000;
+       server 54.147.162.140:3000;
+   }
+
+   server {
+       listen 80;
+       server_name yourdomain.com;
+
+       location / {
+           proxy_pass http://jobconnect_servers;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+   }
+```
+
+4. **Save the file and restart Nginx:**
+
+```bash
+   sudo systemctl restart nginx
+   sudo systemctl enable nginx
+```
+
+### **Testing the Deployment**
+
+1. **Verify that your application is running on both servers:**
+
+```bash
+   pm2 status
+```
+
+2. **Check if the load balancer is distributing traffic correctly:**
+
+```bash
+   curl -I http://yourdomain.com
+```
+
+3. **Monitor server logs:**
+
+```bash
+   sudo tail -f /var/log/nginx/access.log
+```
 
 ## API Documentation
 
@@ -88,6 +182,7 @@ This application uses the JSearch API from RapidAPI. For detailed API documentat
 ## Error Handling
 
 The application includes comprehensive error handling for:
+
 - API request failures
 - Invalid user inputs
 - Network issues
@@ -110,3 +205,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - JSearch API for providing job search data
 - Font Awesome for icons
 - All contributors and maintainers
+
