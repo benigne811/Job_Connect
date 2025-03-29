@@ -205,4 +205,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - JSearch API for providing job search data
 - Font Awesome for icons
 - All contributors and maintainers
-
+## Demo Video
+- [https://youtu.be/Bo9NqZbOmcI]
