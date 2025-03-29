@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerConnect</title>
+    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <nav class="main-nav">
+            <div class="nav-container">
+                <h1 class="logo">CareerConnect</h1>
+                <p class="tagline">Your next opportunity awaits</p>
+            </div>
+        </nav>
+
+        <div class="content-container">
+            <section class="search-area">
+                <div class="search-box">
+                    <input type="text" id="search-role" placeholder="Job role or skills">
+                    <input type="text" id="search-place" placeholder="Where?">
+                    <button id="find-jobs" class="primary-btn">Find Opportunities</button>
+                </div>
+
+                <div class="filter-controls">
+                    <button id="show-filters" class="secondary-btn">
+                        More Options <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+
+                <div class="filter-options" id="filter-section">
+                    <div class="filter-category">
+                        <h3>Compensation</h3>
+                        <div class="salary-inputs">
+                            <input type="number" id="pay-min" placeholder="Minimum">
+                            <span>-</span>
+                            <input type="number" id="pay-max" placeholder="Maximum">
+                        </div>
+                    </div>
+
+                    <div class="filter-category">
+                        <h3>Employment Type</h3>
+                        <div class="type-options">
+                            <label><input type="checkbox" id="perm"> Permanent</label>
+                            <label><input type="checkbox" id="temp"> Temporary</label>
+                            <label><input type="checkbox" id="freelance"> Freelance</label>
+                            <label><input type="checkbox" id="anywhere"> Location Independent</label>
+                        </div>
+                    </div>
+
+                    <div class="filter-category">
+                        <h3>Display Order</h3>
+                        <select id="sort-method">
+                            <option value="best-match">Best Match</option>
+                            <option value="compensation">Compensation</option>
+                            <option value="newest">Most Recent</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section class="results-area">
+                <div class="results-header">
+                    <h2 id="total-results">No search performed yet</h2>
+                    <div class="loading-animation" id="loading" style="display: none;">
+                        <div class="loader"></div>
+                        <span>Fetching opportunities...</span>
+                    </div>
+                </div>
+
+                <div class="opportunities-list" id="opportunities-container">
+                    <div class="empty-state">
+                        <i class="fas fa-briefcase"></i>
+                        <p>Begin your search to discover opportunities</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Opportunity Details Popup -->
+    <div class="detail-popup" id="opportunity-modal">
+        <div class="popup-content">
+            <span class="close-popup">&times;</span>
+            <div class="popup-body" id="popup-content">
+                <!-- Details will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
